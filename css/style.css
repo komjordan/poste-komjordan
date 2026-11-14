@@ -444,7 +444,14 @@ button { cursor: pointer; }
   }
   .dicon { width: 88px; }
   .start, .searchp { left: 8px !important; right: 8px !important; transform: none !important; width: auto !important; z-index: 46; }
-  .navpane { width: auto; }
+  .navpane { width: auto; display: flex; gap: 4px; overflow-x: auto; border-right: 0; border-bottom: 1px solid #e5e5e5; padding: 4px; }
+  .navpane .navh { display: none; }
+  .navpane button { width: auto; flex: none; }
+  .cmdbar, .exbar { overflow-x: auto; flex-wrap: nowrap; }
+  .addr, .exsearch { min-width: 120px; }
+  .gridfiles.view-details .file, .detailhead { grid-template-columns: 28px minmax(0,1fr); }
+  .chrome .ctabs, .chrome .ctool, .chrome .cside { display: none; }
+  .cpage, .sitepage, .chrome { height: 100%; min-height: 0; }
   .taskbar { gap: 2px; padding: 0 4px; justify-content: flex-start; }
   .tb-mid { position: static; transform: none; left: auto; max-width: none; flex: 1; min-width: 0; gap: 2px; }
   .tb-mid > button.search-box {
@@ -457,8 +464,9 @@ button { cursor: pointer; }
   .clockbtn { padding: 0 4px; font-size: 11px; }
   .clockbtn small { white-space: nowrap; }
   .win {
-    left: 8px !important; top: 8px !important; right: auto !important;
-    width: calc(100% - 16px) !important; height: calc(100% - 64px) !important;
+    left: 0 !important; top: 0 !important; right: 0 !important;
+    width: 100% !important; height: calc(100% - 48px) !important;
+    max-width: none !important; border-radius: 0;
   }
   .atool b { max-width: 42vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .aside-pdf { display: none; }

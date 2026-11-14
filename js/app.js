@@ -90,7 +90,8 @@
     const i = chromeState.tabs.findIndex(function (t) { return t.id === id; });
     if (i >= 0) chromeState.active = i;
     else { chromeState.tabs.push({ id: id, title: title }); chromeState.active = chromeState.tabs.length - 1; }
-    openApp("chrome");
+    const win = openApp("chrome");
+    if (win && matchMedia("(max-width: 800px)").matches) win.classList.add("max");
   }
   const tb = document.getElementById("tb-apps");
   const open = {};
@@ -169,10 +170,11 @@
     const n = Object.keys(open).length;
     const narrow = matchMedia("(max-width: 800px)").matches;
     if (narrow) {
-      win.style.left = "8px";
-      win.style.top = "8px";
-      win.style.width = "calc(100% - 16px)";
-      win.style.height = "calc(100% - 64px)";
+      win.style.left = "0";
+      win.style.top = "0";
+      win.style.width = "100%";
+      win.style.height = "calc(100% - 48px)";
+      win.classList.add("max");
     } else {
       win.style.width = "min(700px, calc(100% - 24px))";
       win.style.left = (20 + (n % 2) * 690) + "px";
@@ -254,6 +256,7 @@
     focusWin(win); markFront(win);
     fill(win, id, extra);
     paintTasks();
+    return win;
   }
 
   function openDoc(id, title, html) {

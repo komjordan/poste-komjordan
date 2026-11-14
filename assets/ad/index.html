@@ -6,13 +6,34 @@
 <title>Active Directory &amp; GPO — Axel KAMGAING KOM</title>
 <link rel="stylesheet" href="page.css">
 <style>
-img,figure,.fig{max-width:100%}
-.fig img{width:100%;height:auto}
-main.wrap{max-width:none;padding:12px 20px 48px}
-main.ht{display:block!important}
-main.ht>nav.toc{position:static!important;display:flex;flex-direction:row;flex-wrap:wrap;gap:6px;max-height:none;border:0;margin:0 0 16px;padding:0}
-main.ht>nav.toc a{border:1px solid var(--ln)!important;border-radius:999px!important;padding:6px 10px!important;font-size:12px!important;white-space:nowrap}
-.pn a[href^="/projets/"]{opacity:.45;pointer-events:none}
+html,body{overflow-x:hidden;max-width:100%}
+img,svg,figure,.fig,pre,table,.lab{max-width:100%}
+.fig img,.lab svg{width:100%;height:auto}
+main.wrap{max-width:none;padding:16px 16px 88px}
+section{padding:0!important}
+.sec{margin:0 0 28px!important}
+.sh{display:grid!important;grid-template-columns:auto minmax(0,1fr)!important;gap:10px!important;margin-bottom:12px!important;align-items:center!important}
+.sh .n{font-size:28px!important;line-height:1!important}
+h2,.sh h2{font-size:clamp(22px,5vw,36px)!important;line-height:1.15!important}
+.prose,.prose p,.prose li{max-width:100%}
+pre{max-width:100%;white-space:pre-wrap;overflow-x:auto}
+.figs,.figs.one{grid-template-columns:minmax(0,1fr)!important;max-width:100%}
+.pn,.share{display:none}
+nav.toc{
+  position:fixed!important;left:12px;right:12px;bottom:58px;z-index:40;
+  display:none!important;flex-direction:column!important;flex-wrap:nowrap!important;
+  max-height:52vh;overflow:auto;margin:0!important;padding:8px!important;
+  background:#fff;border:1px solid #d0d0d0;border-radius:12px;
+  box-shadow:0 12px 36px rgba(0,0,0,.22);
+}
+body.toc-open nav.toc{display:flex!important}
+nav.toc a{border:0!important;border-radius:8px!important;white-space:normal!important;padding:8px 10px!important}
+#tocbtn,#topbtn{
+  position:fixed;z-index:41;border:0;border-radius:999px;background:#0f6cbd;color:#fff;
+  padding:10px 14px;font:600 13px/1 Segoe UI,sans-serif;box-shadow:0 4px 16px rgba(0,0,0,.25);
+}
+#tocbtn{left:12px;bottom:12px;max-width:68%;text-align:left}
+#topbtn{right:12px;bottom:12px}
 </style>
 </head>
 <body>
@@ -33,5 +54,61 @@ main.ht>nav.toc a{border:1px solid var(--ln)!important;border-radius:999px!impor
   <a href="/projets/splunk.html" class="r rv"><span class="mono" style="color:var(--mu)">Projet suivant →</span><b>SIEM Splunk</b></a>
 </nav>
 </div></main>
+<script>
+(function () {
+  var toc = document.querySelector("nav.toc");
+  var btn = document.createElement("button");
+  btn.id = "tocbtn";
+  btn.type = "button";
+  btn.textContent = "Sommaire";
+  var top = document.createElement("button");
+  top.id = "topbtn";
+  top.type = "button";
+  top.hidden = true;
+  top.textContent = "Haut";
+  document.body.appendChild(btn);
+  document.body.appendChild(top);
+  function setOpen(v) {
+    document.body.classList.toggle("toc-open", v);
+    btn.setAttribute("aria-expanded", v ? "true" : "false");
+  }
+  btn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    setOpen(!document.body.classList.contains("toc-open"));
+  });
+  document.addEventListener("click", function (e) {
+    if (!document.body.classList.contains("toc-open")) return;
+    if (e.target.closest("#tocbtn") || e.target.closest("nav.toc")) return;
+    setOpen(false);
+  });
+  if (toc) toc.addEventListener("click", function (e) {
+    if (e.target.closest("a")) setOpen(false);
+  });
+  var secs = Array.prototype.slice.call(document.querySelectorAll("section.sec"));
+  function current() {
+    var y = window.scrollY + 90;
+    var name = "Sommaire";
+    secs.forEach(function (s) {
+      if (s.offsetTop <= y) {
+        var n = s.querySelector(".n");
+        var h = s.querySelector("h2");
+        name = ((n ? n.textContent.trim() : "") + " " + (h ? h.textContent.trim() : "")).trim() || "Sommaire";
+      }
+    });
+    btn.textContent = name.length > 32 ? name.slice(0, 30) + "…" : name;
+  }
+  window.addEventListener("scroll", function () {
+    top.hidden = window.scrollY < 360;
+    if (document.body.classList.contains("toc-open")) setOpen(false);
+    current();
+  }, { passive: true });
+  top.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
+  setTimeout(function () {
+    setOpen(true);
+    setTimeout(function () { setOpen(false); }, 2200);
+  }, 500);
+  current();
+})();
+</script>
 </body>
 </html>
