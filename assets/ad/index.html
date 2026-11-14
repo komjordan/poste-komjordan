@@ -18,6 +18,7 @@ h2,.sh h2{font-size:clamp(22px,5vw,36px)!important;line-height:1.15!important}
 .prose,.prose p,.prose li{max-width:100%}
 pre{max-width:100%;white-space:pre-wrap;overflow-x:auto}
 .figs,.figs.one{grid-template-columns:minmax(0,1fr)!important;max-width:100%}
+.rv,.an{opacity:1!important;transform:none!important}
 .pn,.share{display:none}
 nav.toc{
   position:fixed!important;left:12px;right:12px;bottom:58px;z-index:40;
@@ -65,7 +66,7 @@ nav.toc a{border:0!important;border-radius:8px!important;white-space:normal!impo
   top.id = "topbtn";
   top.type = "button";
   top.hidden = true;
-  top.textContent = "Haut";
+  top.textContent = "Top";
   document.body.appendChild(btn);
   document.body.appendChild(top);
   function setOpen(v) {
@@ -95,7 +96,7 @@ nav.toc a{border:0!important;border-radius:8px!important;white-space:normal!impo
         name = ((n ? n.textContent.trim() : "") + " " + (h ? h.textContent.trim() : "")).trim() || "Sommaire";
       }
     });
-    btn.textContent = name.length > 32 ? name.slice(0, 30) + "…" : name;
+    btn.textContent = "Sommaire";
   }
   window.addEventListener("scroll", function () {
     top.hidden = window.scrollY < 360;

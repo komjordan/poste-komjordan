@@ -444,10 +444,8 @@ button { cursor: pointer; }
   }
   .dicon { width: 88px; }
   .start, .searchp { left: 8px !important; right: 8px !important; transform: none !important; width: auto !important; z-index: 46; }
-  .navpane { width: auto; display: flex; gap: 4px; overflow-x: auto; border-right: 0; border-bottom: 1px solid #e5e5e5; padding: 4px; }
-  .navpane .navh { display: none; }
-  .navpane button { width: auto; flex: none; }
-  .cmdbar, .exbar { overflow-x: auto; flex-wrap: nowrap; }
+  .navpane { display: none !important; }
+  .cmdbar, .exbar { overflow-x: auto; flex-wrap: wrap; }
   .addr, .exsearch { min-width: 120px; }
   .gridfiles.view-details .file, .detailhead { grid-template-columns: 28px minmax(0,1fr); }
   .chrome .ctabs, .chrome .ctool, .chrome .cside { display: none; }
