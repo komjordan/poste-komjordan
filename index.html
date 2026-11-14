@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KOMJORDAN — Windows</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-mode="login">
+  <div id="lock" class="screen">
+    <div class="lock-center">
+      <div class="clock" id="lock-time">--:--</div>
+      <div class="date" id="lock-date">—</div>
+    </div>
+  </div>
+  <div id="signin" class="screen hidden">
+    <form class="sign-center" id="sign-form" autocomplete="off">
+      <img class="avatar" src="assets/avatar.jpg" alt="">
+      <div class="who">Axel KAMGAING KOM</div>
+      <div class="domain">KOMJORDAN\Axel</div>
+      <div class="pass">
+        <label class="sr" for="pass" style="position:absolute;width:1px;height:1px;overflow:hidden">Mot de passe</label>
+        <input id="pass" type="password" placeholder="Mot de passe" autocomplete="off">
+        <button class="arrow" type="submit" aria-label="Connexion"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+      <button class="opts" type="button" id="opts">Options de connexion</button>
+      <p class="simline">Simulation visuelle. Aucun mot de passe n’est vérifié, enregistré ou transmis.</p>
+    </form>
+    <div class="acctswitch">
+      <button type="button" id="acct-axel" class="on"><img src="assets/avatar.jpg" alt=""><span>Axel KAMGAING KOM</span></button>
+      <button type="button" id="acct-other"><span class="genuser" aria-hidden="true"></span><span>Autre utilisateur</span></button>
+    </div>
+    <div class="sysbar" id="sign-tools"></div>
+    <div class="fly" id="sign-fly"></div>
+  </div>
+  <div id="welcome" aria-live="polite">
+    <img class="avatar" src="assets/avatar.jpg" alt="">
+    <p id="welcome-line">Bienvenue</p>
+    <div class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+  </div>
+  <div id="desktop">
+    <nav class="desk-icons" id="desk-icons" aria-label="Bureau"></nav>
+    <div id="wins"></div>
+    <div class="start" id="start"></div>
+    <div class="searchp" id="searchp"></div>
+    <div class="quick" id="quick"></div>
+    <div class="cal" id="cal"></div>
+    <div class="taskview" id="taskview"></div>
+    <footer class="taskbar">
+      <div class="tb-mid">
+        <button class="start-btn" id="start-btn" aria-label="Démarrer"><img src="assets/windows-logo.svg" alt=""></button>
+        <button type="button" id="search-box" class="search-box" aria-label="Rechercher">Rechercher</button>
+        <button type="button" id="taskview-btn" aria-label="Vue des tâches"></button>
+        <div class="tb-apps" id="tb-apps"></div>
+      </div>
+      <div class="tray" id="tray"></div>
+    </footer>
+  </div>
+  <script src="js/content.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
