@@ -165,9 +165,17 @@
     win.dataset.app = id;
     win.innerHTML = '<header class="titlebar ' + (theme || "") + '">' + (I[kind] || "") + '<span>' + title + '</span><div class="caps"><button data-act="min" aria-label="Réduire">—</button><button data-act="max" aria-label="Agrandir">□</button><button data-act="close" aria-label="Fermer">✕</button></div></header><div class="win-body"></div>';
     const n = Object.keys(open).length;
-    win.style.width = "min(700px, calc(100% - 24px))";
-    win.style.left = (20 + (n % 2) * 690) + "px";
-    win.style.top = (16 + Math.floor(n / 2) * 28) + "px";
+    const narrow = matchMedia("(max-width: 800px)").matches;
+    if (narrow) {
+      win.style.left = "8px";
+      win.style.top = "8px";
+      win.style.width = "calc(100% - 16px)";
+      win.style.height = "calc(100% - 64px)";
+    } else {
+      win.style.width = "min(700px, calc(100% - 24px))";
+      win.style.left = (20 + (n % 2) * 690) + "px";
+      win.style.top = (16 + Math.floor(n / 2) * 28) + "px";
+    }
     wins.appendChild(win);
     win.addEventListener("pointerdown", function () { focusWin(win); markFront(win); });
     const bar = win.querySelector(".titlebar");
@@ -181,8 +189,11 @@
     });
     bar.addEventListener("pointermove", function (e) {
       if (!drag || win.classList.contains("max")) return;
-      win.style.left = Math.max(0, e.clientX - drag.x) + "px";
-      win.style.top = Math.max(0, e.clientY - drag.y) + "px";
+      const narrow = matchMedia("(max-width: 800px)").matches;
+      const maxL = Math.max(0, window.innerWidth - win.offsetWidth);
+      const maxT = Math.max(0, window.innerHeight - 56 - win.offsetHeight);
+      win.style.left = Math.min(maxL, Math.max(0, e.clientX - drag.x)) + "px";
+      win.style.top = Math.min(narrow ? maxT : 9999, Math.max(0, e.clientY - drag.y)) + "px";
     });
     bar.addEventListener("pointerup", function () { drag = null; });
     win.querySelectorAll("[data-act]").forEach(function (b) {
@@ -532,20 +543,19 @@
   }
 
   function renderAcrobat(body) {
-    body.innerHTML = '<div class="acrobat"><div class="atool"><img src="assets/icons/acrobat.svg" alt="" width="22" height="22"><b>Acrobat Reader — CV Axel KAMGAING</b><button type="button" id="pp">Page préc.</button><span id="pn">1 / 1</span><button type="button" id="np">Page suiv.</button><button type="button" id="zout">−</button><span id="zl">100 %</span><button type="button" id="zin">+</button></div><aside class="aside-pdf"><button type="button" class="on">1</button></aside><div class="apage" id="apage"><iframe title="CV" src="assets/cv.pdf#page=1"></iframe></div></div>';
+    body.innerHTML = '<div class="acrobat"><div class="atool"><img src="assets/icons/acrobat.svg" alt="" width="22" height="22"><b>CV Axel KAMGAING KOM</b><span id="pn">1 / 1</span><button type="button" id="zout">−</button><span id="zl">100 %</span><button type="button" id="zin">+</button></div><aside class="aside-pdf"><button type="button" class="on">1</button></aside><div class="apage" id="apage"><iframe title="CV" src="assets/cv.pdf#page=1"></iframe></div></div>';
     let zoom = 100;
     function apply() {
+      const narrow = matchMedia("(max-width: 800px)").matches;
+      const base = narrow ? Math.max(260, body.clientWidth - 80) : 720;
       body.querySelector("#zl").textContent = zoom + " %";
-      body.querySelector("iframe").style.width = Math.round(720 * zoom / 100) + "px";
+      const frame = body.querySelector("iframe");
+      frame.style.width = Math.round(base * zoom / 100) + "px";
+      frame.style.height = Math.round((narrow ? Math.max(360, body.clientHeight - 120) : 900) * zoom / 100) + "px";
     }
+    apply();
     body.querySelector("#zin").addEventListener("click", function () { zoom = Math.min(160, zoom + 10); apply(); });
     body.querySelector("#zout").addEventListener("click", function () { zoom = Math.max(60, zoom - 10); apply(); });
-    body.querySelector("#np").addEventListener("click", function () {
-      body.querySelector("#pn").textContent = "1 / 1 — dernière page";
-    });
-    body.querySelector("#pp").addEventListener("click", function () {
-      body.querySelector("#pn").textContent = "1 / 1";
-    });
   }
 
   function renderSettings(body) {

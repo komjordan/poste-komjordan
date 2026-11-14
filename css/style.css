@@ -431,11 +431,32 @@ button { cursor: pointer; }
 .bin-list button { display: block; margin: 6px 0; border: 0; background: #f3f3f3; padding: 8px; width: 100%; text-align: left; }
 
 @media (max-width: 800px) {
-  .clock { font-size: 64px; }
+  .clock { font-size: 48px; }
+  #welcome p { font-size: 22px; padding: 0 16px; }
+  .who { font-size: 22px; }
   .explorer, .outlook, .settings { grid-template-columns: 1fr; }
   .pins { grid-template-columns: repeat(4, 1fr); }
-  .desk-icons { flex-direction: row; flex-wrap: wrap; width: auto; right: 8px; height: auto; bottom: auto; }
+  .desk-icons {
+    flex-direction: column; flex-wrap: nowrap; width: 88px;
+    left: 4px; right: auto; top: 4px; bottom: 56px; height: auto;
+  }
   .start, .searchp { left: 8px; right: 8px; transform: none; width: auto; }
+  .taskbar { gap: 4px; padding: 0 4px; }
+  .tb-mid { left: 4px; right: auto; transform: none; gap: 2px; max-width: calc(100% - 72px); }
+  .tb-mid > button.search-box {
+    width: 40px; min-width: 40px; padding: 0; font-size: 0; color: transparent;
+    background-position: center;
+  }
+  #tb-apps [data-app="chrome"], #tb-apps [data-app="outlook"] { display: none; }
+  .tray #tray-net, .tray #tray-vol, .tray #tray-bat { display: none; }
+  .clockbtn { padding: 0 6px; }
+  .win {
+    left: 8px !important; top: 8px !important; right: auto !important;
+    width: calc(100% - 16px) !important; height: calc(100% - 64px) !important;
+  }
+  .atool b { max-width: 42vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .aside-pdf { display: none; }
+  .apage iframe, .apage embed { height: auto; min-height: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .ring, #desktop.on { animation: none; }
