@@ -105,7 +105,9 @@
     const hm = paris({ hour: "2-digit", minute: "2-digit", second: "2-digit" });
     const hmShort = paris({ hour: "2-digit", minute: "2-digit" });
     const day = paris({ weekday: "long", day: "numeric", month: "long" });
-    const short = paris({ day: "2-digit", month: "2-digit", year: "numeric" });
+    const short = matchMedia("(max-width: 800px)").matches
+      ? paris({ day: "2-digit", month: "2-digit" })
+      : paris({ day: "2-digit", month: "2-digit", year: "numeric" });
     const st = document.getElementById("lock-time");
     if (st) { st.textContent = hmShort; document.getElementById("lock-date").textContent = day; }
     const tbTime = document.getElementById("tb-time");
@@ -543,15 +545,16 @@
   }
 
   function renderAcrobat(body) {
-    body.innerHTML = '<div class="acrobat"><div class="atool"><img src="assets/icons/acrobat.svg" alt="" width="22" height="22"><b>CV Axel KAMGAING KOM</b><span id="pn">1 / 1</span><button type="button" id="zout">−</button><span id="zl">100 %</span><button type="button" id="zin">+</button></div><aside class="aside-pdf"><button type="button" class="on">1</button></aside><div class="apage" id="apage"><iframe title="CV" src="assets/cv.pdf#page=1"></iframe></div></div>';
+    body.innerHTML = '<div class="acrobat"><div class="atool"><img src="assets/icons/acrobat.svg" alt="" width="22" height="22"><b>CV Axel KAMGAING KOM</b><span id="pn">1 / 1</span><button type="button" id="zout">−</button><span id="zl">100 %</span><button type="button" id="zin">+</button></div><aside class="aside-pdf"><button type="button" class="on">1</button></aside><div class="apage" id="apage"><img id="cvimg" alt="CV" src="assets/cv-page-1.png"></div></div>';
     let zoom = 100;
     function apply() {
       const narrow = matchMedia("(max-width: 800px)").matches;
-      const base = narrow ? Math.max(260, body.clientWidth - 80) : 720;
+      const fit = narrow ? Math.max(220, body.clientWidth - 16) : 720;
       body.querySelector("#zl").textContent = zoom + " %";
-      const frame = body.querySelector("iframe");
-      frame.style.width = Math.round(base * zoom / 100) + "px";
-      frame.style.height = Math.round((narrow ? Math.max(360, body.clientHeight - 120) : 900) * zoom / 100) + "px";
+      const img = body.querySelector("#cvimg");
+      img.style.width = Math.round(fit * zoom / 100) + "px";
+      img.style.height = "auto";
+      img.style.maxWidth = "none";
     }
     apply();
     body.querySelector("#zin").addEventListener("click", function () { zoom = Math.min(160, zoom + 10); apply(); });
