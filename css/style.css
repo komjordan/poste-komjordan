@@ -437,10 +437,13 @@ button { cursor: pointer; }
   .explorer, .outlook, .settings { grid-template-columns: 1fr; }
   .pins { grid-template-columns: repeat(4, 1fr); }
   .desk-icons {
-    flex-direction: column; flex-wrap: nowrap; width: 88px;
-    left: 4px; right: auto; top: 4px; bottom: 56px; height: auto;
+    flex-direction: row; flex-wrap: wrap; align-content: flex-start;
+    width: auto; left: 8px; right: 8px; top: 8px; bottom: auto; height: auto;
+    max-height: 42%;
   }
-  .start, .searchp { left: 8px; right: 8px; transform: none; width: auto; }
+  .dicon { width: 72px; }
+  .start, .searchp { left: 8px !important; right: 8px !important; transform: none !important; width: auto !important; z-index: 46; }
+  .navpane { width: auto; }
   .taskbar { gap: 4px; padding: 0 4px; }
   .tb-mid { left: 4px; right: auto; transform: none; gap: 2px; max-width: calc(100% - 72px); }
   .tb-mid > button.search-box {

@@ -620,7 +620,7 @@
 
   function buildStart() {
     const start = document.getElementById("start");
-    start.innerHTML = '<input id="qstart" placeholder="Rechercher des applications, des paramètres et des documents" autocomplete="off"><div class="sec-h"><span>Épinglé</span><button type="button" id="all-btn">Toutes les applications</button></div><div class="pins" id="pins"></div><div class="allapps" id="allapps"></div><div class="sec-h"><span>Recommandé</span></div><div class="reco" id="reco"></div><div class="start-foot"><button class="userchip" type="button" id="user-open"><img src="assets/avatar.jpg" alt=""><span>Axel KAMGAING KOM</span></button><button type="button" id="power-btn-start" aria-label="Alimentation">' + I.power + '</button></div>';
+    start.innerHTML = '<input id="qstart" placeholder="' + (matchMedia("(max-width: 800px)").matches ? "Rechercher" : "Rechercher des applications, des paramètres et des documents") + '" autocomplete="off"><div class="sec-h"><span>Épinglé</span><button type="button" id="all-btn">Toutes les applications</button></div><div class="pins" id="pins"></div><div class="allapps" id="allapps"></div><div class="sec-h"><span>Recommandé</span></div><div class="reco" id="reco"></div><div class="start-foot"><button class="userchip" type="button" id="user-open"><img src="assets/avatar.jpg" alt=""><span>Axel KAMGAING KOM</span></button><button type="button" id="power-btn-start" aria-label="Alimentation">' + I.power + '</button></div>';
     const pinsEl = start.querySelector("#pins");
     pins.forEach(function (p) {
       const b = document.createElement("button");
